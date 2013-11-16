@@ -1,0 +1,73 @@
+<% if @cert_exists %>
+
+server {
+    listen 443 ssl;
+    server_name <%= @resource.server %>;
+    
+    ssl_certificate /etc/nginx/certs/<%= @resource.name %>.cert;
+    ssl_certificate_key /etc/nginx/certs/<%= @resource.name %>.key;
+    
+    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.access.log;
+    error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.error.log;
+    
+    location / {
+        passenger_enabled on;
+        
+        <% if @resource.ruby %>
+        passenger_ruby <%= @resource.ruby %>;
+        <% end %>
+        
+        root <%= @resource.dir %>/public;
+        
+        <% if @resource.rails_env %>
+        rails_env "<%= @resource.rails_env %>";
+        <% end %>
+        
+        passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
+        passenger_set_cgi_param HTTP_X_FORWARDED_PROTO https;
+        
+        client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.max_body_size %>;
+    }
+}
+
+    <% if !@resource.http && node.nginx_passenger.redirect_to_https %>
+
+    server {
+        listen 80;
+        server_name <%= @resource.server %>;
+        return 301 https://<%= @resource.server %>$request_uri;
+    }
+
+    <% end %>
+
+<% end %>
+
+<% if !@cert_exists || @resource.http %>
+
+server {
+    listen 80;
+    server_name <%= @resource.server %>;
+    
+    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.access.log;
+    error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.error.log;
+    
+    location / {
+        passenger_enabled on;
+        
+        <% if @resource.ruby %>
+        passenger_ruby <%= @resource.ruby %>;
+        <% end %>
+        
+        root <%= @resource.dir %>/public;
+        
+        <% if @resource.rails_env %>
+        rails_env "<%= @resource.rails_env %>";
+        <% end %>
+        
+        passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
+        
+        client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.max_body_size %>;
+    }
+}
+
+<% end %>

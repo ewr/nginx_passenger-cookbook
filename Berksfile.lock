@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "nginx_passenger": {
+      "path": "."
+    },
+    "apt": {
+      "locked_version": "2.1.0"
+    }
+  }
+}
