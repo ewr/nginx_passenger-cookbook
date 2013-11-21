@@ -15,7 +15,6 @@ apt_repository "phusion" do
   key           "561F9B9CAC40B2F7"
 end
 
-
 # -- Install packages -- #
 
 package "passenger"
@@ -26,4 +25,11 @@ package "nginx-extras"
 service "nginx" do
   action    [:enable,:start]
   supports  [:enable,:start,:stop,:disable,:reload,:restart]
+end
+
+# -- Install our config for Passenger -- #
+
+template "/etc/nginx/conf.d/passenger.conf" do
+  action :create
+  notifies :restart, "service[nginx]"
 end
