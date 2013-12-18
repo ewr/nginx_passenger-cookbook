@@ -19,7 +19,9 @@ server {
         
         root <%= @resource.dir %>/public;
         
-        <% if @resource.rails_env %>
+        <% if @resource.env %>
+        passenger_app_env "<%= @resource.env %>";
+        <% elsif @resource.rails_env %>
         rails_env "<%= @resource.rails_env %>";
         <% end %>
         
@@ -60,7 +62,9 @@ server {
         
         root <%= @resource.dir %>/public;
         
-        <% if @resource.rails_env %>
+        <% if @resource.env %>
+        passenger_app_env "<%= @resource.env %>";
+        <% elsif @resource.rails_env %>
         rails_env "<%= @resource.rails_env %>";
         <% end %>
         
