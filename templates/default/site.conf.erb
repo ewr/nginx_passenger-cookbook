@@ -4,8 +4,8 @@ server {
     listen 443 ssl;
     server_name <%= @resource.server %>;
     
-    ssl_certificate /etc/nginx/certs/<%= @resource.name %>.cert;
-    ssl_certificate_key /etc/nginx/certs/<%= @resource.name %>.key;
+    ssl_certificate <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.cert;
+    ssl_certificate_key <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.key;
     
     access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.access.log;
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.error.log;

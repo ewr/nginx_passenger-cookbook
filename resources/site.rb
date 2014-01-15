@@ -1,5 +1,5 @@
 actions :delete
-default_action :install
+default_action :create
 attribute :name,          :kind_of => String
 attribute :server,        :kind_of => String
 attribute :rails_env,     :kind_of => String
@@ -11,3 +11,4 @@ attribute :template,      :kind_of => String
 attribute :min_instances, :kind_of => Integer
 attribute :max_body_size, :kind_of => String
 attribute :env,           :kind_of => String
+attribute :custom,        :kind_of => Hash

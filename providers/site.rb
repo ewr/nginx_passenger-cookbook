@@ -1,4 +1,4 @@
-action :install do
+action :create do
   # -- Are we installing an SSL site? -- #
   
   cert_exists = false
@@ -9,14 +9,14 @@ action :install do
     
     if cert
       # TODO: Need to make sure cert has cert and key
-      # TODO: Should certs dir be an attribute?
       
-      directory "/etc/nginx/certs" do
+      directory node.nginx_passenger.certs_dir do
         action :create
+        recursive true
       end
       
       cert.keys.each do |k|
-        file "/etc/nginx/certs/#{new_resource.name}.#{k}" do
+        file "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.#{k}" do
           backup    1
           mode      0644
           content   cert[k]
@@ -45,5 +45,31 @@ action :install do
     variables({:resource => new_resource,:cert_exists => cert_exists})
     
     notifies :reload, "service[nginx]"
+  end
+end
+
+#----------
+
+action :delete do
+  # -- Define nginx service (just in case) -- #
+  
+  service "nginx" do
+    provider  Chef::Provider::Service::Upstart
+    action    :nothing
+    supports  :start => true, :restart => true, :reload => true
+  end
+  
+  # -- Delete nginx site file -- #
+  
+  file "/etc/nginx/sites-enabled/#{new_resource.name}" do
+    action :delete
+    notifies :reload, "service[nginx]", :immediately
+  end
+  
+  # -- Delete any certs -- #
+  
+  execute "remove-#{new_resource.name}-certs" do
+    command "rm -f #{node.nginx_passenger.certs_dir}/#{new_resource.name}*"
+    action :run
   end
 end
