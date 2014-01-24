@@ -31,8 +31,8 @@ action :create do
   end
   
   # -- Create nginx site file -- #
-  
-  template "/etc/nginx/sites-enabled/#{new_resource.name}" do
+    
+  template "#{node.nginx_passenger.sites_dir}/#{new_resource.name}" do
     if new_resource.template
       source new_resource.template
     else
@@ -61,7 +61,7 @@ action :delete do
   
   # -- Delete nginx site file -- #
   
-  file "/etc/nginx/sites-enabled/#{new_resource.name}" do
+  file "#{node.nginx_passenger.sites_dir}/#{new_resource.name}" do
     action :delete
     notifies :reload, "service[nginx]", :immediately
   end

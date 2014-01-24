@@ -29,7 +29,16 @@ end
 
 # -- Install our config for Passenger -- #
 
-template "/etc/nginx/conf.d/passenger.conf" do
+template "/etc/nginx/nginx.conf" do
   action :create
   notifies :restart, "service[nginx]"
+end
+
+# -- Make sure sites directory exists -- #
+
+directory node.nginx_passenger.sites_dir do
+  action      :create
+  recursive   true
+  owner       "nginx"
+  mode        0755
 end

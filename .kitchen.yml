@@ -12,4 +12,6 @@ platforms:
 suites:
 - name: default
   run_list: ["recipe[nginx_passenger]"]
-  attributes: {}
+  attributes: 
+    nginx_passenger:
+      sites_dir: "/etc/nginx/sites"

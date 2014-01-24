@@ -1,3 +1,6 @@
+default.nginx_passenger.sites_dir           = "/etc/nginx/sites-enabled"
+default.nginx_passenger.nginx_workers       = 4
+
 default.nginx_passenger.log_dir             = "/var/log/nginx"
 default.nginx_passenger.cert_dir            = "/etc/nginx/certs"
 default.nginx_passenger.ruby                = "/usr/bin/ruby"
