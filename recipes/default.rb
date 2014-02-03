@@ -43,6 +43,5 @@ end
 directory node.nginx_passenger.sites_dir do
   action      :create
   recursive   true
-  owner       "nginx"
   mode        0755
 end
