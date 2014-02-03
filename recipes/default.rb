@@ -17,6 +17,10 @@ end
 
 # -- Install packages -- #
 
+package "nginx-common" do
+  options '-o DPkg::Options::="--force-confold"'
+end
+
 package "passenger"
 package "nginx-extras"
 
