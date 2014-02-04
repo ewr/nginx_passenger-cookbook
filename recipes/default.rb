@@ -31,7 +31,7 @@ service "nginx" do
   supports  [:enable,:start,:stop,:disable,:reload,:restart]
 end
 
-# -- Install our config for Passenger -- #
+# -- Install nginx config with Passenger -- #
 
 template "/etc/nginx/nginx.conf" do
   action :create

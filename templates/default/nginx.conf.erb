@@ -56,6 +56,14 @@ http {
 	##
 
 	# include /etc/nginx/naxsi_core.rules;
+  
+  ##
+  # Passenger config
+  ##
+  
+  passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+  passenger_ruby <%= node.nginx_passenger.ruby %>;
+  passenger_max_pool_size <%= node.nginx_passenger.max_pool_size %>;
 
 	##
 	# Virtual Host Configs
