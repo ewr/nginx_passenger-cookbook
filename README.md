@@ -29,7 +29,7 @@ to nginx.
 For instance:
 
     nginx_passenger_site "ewr" do
-      action :install
+      action :create
       dir    "/web/ewr/current"
       server "ewr.is"
     end
