@@ -14,4 +14,5 @@ suites:
   run_list: ["recipe[nginx_passenger]"]
   attributes: 
     nginx_passenger:
-      sites_dir: "/etc/nginx/sites"
+      sites_dir:  "/etc/nginx/sites"
+      log_dir:    "/var/log/nginx-sites"

@@ -4,7 +4,7 @@
       "path": "."
     },
     "apt": {
-      "locked_version": "2.1.1"
+      "locked_version": "2.1.0"
     }
   }
 }

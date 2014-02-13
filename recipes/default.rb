@@ -45,3 +45,12 @@ directory node.nginx_passenger.sites_dir do
   recursive   true
   mode        0755
 end
+
+# -- Make sure logs directory exists -- #
+
+directory node.nginx_passenger.log_dir do
+  action :create
+  recursive true
+  mode 0755
+  owner "www-data"
+end
