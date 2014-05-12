@@ -3,31 +3,35 @@
 server {
     listen 443 ssl;
     server_name <%= @resource.server %>;
-    
+
     ssl_certificate <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.cert;
     ssl_certificate_key <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.key;
-    
+
     access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.access.log;
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.error.log;
-    
+
     location / {
         passenger_enabled on;
-        
+
         <% if @resource.ruby %>
         passenger_ruby <%= @resource.ruby %>;
         <% end %>
-        
+
         root <%= @resource.dir %>/public;
-        
+
         <% if @resource.env %>
         passenger_app_env "<%= @resource.env %>";
         <% elsif @resource.rails_env %>
         rails_env "<%= @resource.rails_env %>";
         <% end %>
-        
+
+        <% if @resource.user %>
+        passenger_user "<%= @resource.user %>";
+        <% end %>
+
         passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
         passenger_set_cgi_param HTTP_X_FORWARDED_PROTO https;
-        
+
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
     }
 }
@@ -49,27 +53,31 @@ server {
 server {
     listen 80;
     server_name <%= @resource.server %>;
-    
+
     access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.access.log;
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.error.log;
-    
+
     location / {
         passenger_enabled on;
-        
+
         <% if @resource.ruby %>
         passenger_ruby <%= @resource.ruby %>;
         <% end %>
-        
+
         root <%= @resource.dir %>/public;
-        
+
         <% if @resource.env %>
         passenger_app_env "<%= @resource.env %>";
         <% elsif @resource.rails_env %>
         rails_env "<%= @resource.rails_env %>";
         <% end %>
-        
+
+        <% if @resource.user %>
+        passenger_user "<%= @resource.user %>";
+        <% end %>
+
         passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
-        
+
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
     }
 }

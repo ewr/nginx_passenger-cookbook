@@ -11,4 +11,5 @@ attribute :template,      :kind_of => String
 attribute :min_instances, :kind_of => Integer
 attribute :max_body_size, :kind_of => String
 attribute :env,           :kind_of => String
+attribute :user,          :kind_of => String
 attribute :custom,        :kind_of => Hash
