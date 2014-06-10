@@ -34,6 +34,22 @@ server {
 
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
     }
+
+    <% if @resource.maintenance_page %>
+    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/../in_maintenance_mode" %>) {
+        return 503;
+    }
+
+    error_page 503 @maintenance;
+
+    location @maintenance {
+        root <%= @resource.dir %>/public;
+
+        if ($uri !~ ^/assets/) {
+            rewrite ^(.*)$ <%= @resource.maintenance_page %> break;
+        }
+    }
+    <% end %>
 }
 
     <% if !@resource.http && node.nginx_passenger.redirect_to_https %>
@@ -80,6 +96,22 @@ server {
 
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
     }
+
+    <% if @resource.maintenance_page %>
+    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/../in_maintenance_mode" %>) {
+        return 503;
+    }
+
+    error_page 503 @maintenance;
+
+    location @maintenance {
+        root <%= @resource.dir %>/public;
+
+        if ($uri !~ ^/assets/) {
+            rewrite ^(.*)$ <%= @resource.maintenance_page %> break;
+        }
+    }
+    <% end %>
 }
 
 <% end %>
