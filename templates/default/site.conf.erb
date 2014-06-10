@@ -36,7 +36,7 @@ server {
     }
 
     <% if @resource.maintenance_page %>
-    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/../in_maintenance_mode" %>) {
+    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/IN_MAINTENANCE_MODE" %>) {
         return 503;
     }
 
@@ -98,7 +98,7 @@ server {
     }
 
     <% if @resource.maintenance_page %>
-    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/../in_maintenance_mode" %>) {
+    if (-f <%= @resource.maintenance_check || "#{@resource.dir}/IN_MAINTENANCE_MODE" %>) {
         return 503;
     }
 
