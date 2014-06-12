@@ -3,8 +3,11 @@
     "nginx_passenger": {
       "path": "."
     },
+    "nginx_passenger-test": {
+      "path": "./test/test-cookbook"
+    },
     "apt": {
-      "locked_version": "2.1.0"
+      "locked_version": "2.3.8"
     }
   }
 }

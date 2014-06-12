@@ -12,3 +12,6 @@ default.nginx_passenger.redirect_to_https   = true
 default.nginx_passenger.site_min_instances  = 2
 default.nginx_passenger.site_max_body_size  = "8M"
 default.nginx_passenger.keep_env_path       = true
+
+default.nginx_passenger.maintenance_page    = nil
+default.nginx_passenger.maintenance_check   = nil
