@@ -1,5 +1,7 @@
 # Installs nginx and Passenger from Phusion's oss-binaries repo
 
+include_recipe "apt"
+
 # -- Make sure apt HTTPS is installed -- #
 
 package "apt-transport-https"

@@ -1,3 +1,6 @@
+# for the test suite...
+package "curl"
+
 # Create the directory for our web server
 directory "/web/test/current/public" do
   owner     "www-data"
