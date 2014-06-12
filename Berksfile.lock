@@ -1,10 +1,13 @@
-{
-  "sources": {
-    "nginx_passenger": {
-      "path": "."
-    },
-    "apt": {
-      "locked_version": "2.1.0"
-    }
-  }
-}
+DEPENDENCIES
+  nginx_passenger
+    path: .
+    metadata: true
+  nginx_passenger-test
+    path: test/test-cookbook
+
+GRAPH
+  apt (2.4.0)
+  nginx_passenger (0.2.7)
+    apt (>= 0.0.0)
+  nginx_passenger-test (0.0.1)
+    nginx_passenger (>= 0.0.0)

@@ -25,3 +25,12 @@ describe file("/var/log/nginx-sites") do
   it { should be_owned_by("www-data") }
 end
 
+describe command("curl -I localhost") do
+  it { should return_exit_status 0 }
+  its(:stdout) { should match /HTTP\/1\.1 200/ }
+end
+
+describe command("curl -I -H 'Host: maintenance-mode-test' localhost") do
+  it { should return_exit_status 0 }
+  its(:stdout) { should match /HTTP\/1\.1 503/ }
+end
