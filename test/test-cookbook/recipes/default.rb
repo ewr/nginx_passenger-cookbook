@@ -1,8 +1,21 @@
 # for the test suite...
 package "curl"
 
+# -- Create working test site -- #
+
 # Create the directory for our web server
-directory "/web/test/current/public" do
+['/web/test','/web/test/public'].each do |d|
+  directory d do
+    owner     "www-data"
+    group     "www-data"
+    mode      0755
+    action    :create
+    recursive true
+  end
+end
+
+# Create public dir
+directory "/web/test/public" do
   owner     "www-data"
   group     "www-data"
   mode      0755
@@ -10,38 +23,71 @@ directory "/web/test/current/public" do
   recursive true
 end
 
+template "/web/test/config.ru" do
+  action    :create
+  owner     "www-data"
+  group     "www-data"
+  mode      0755
+  variables({ :server => "test.kitchen" })
+end
+
 # Create the default test site
 nginx_passenger_site "test" do
   action        :create
-  server        "localhost"
+  server        "test.kitchen"
   cert          "skip"
-  dir           "/web/test/current"
+  dir           "/web/test"
 end
 
-# Create a site to test maintenance mode
-nginx_passenger_site "maintenance-mode-test" do
-  action            :create
-  server            "maintenance-mode-test"
-  cert              "skip"
-  dir               "/web/test/current"
-  maintenance_check "/web/test/current/public/maintenance.html"
-  maintenance_page  "/maintenance.html"
+# -- Create maintenance mode site -- #
+
+# Create the directory for our web server
+['/web/maintenance','/web/maintenance/public'].each do |d|
+  directory d do
+    owner     "www-data"
+    group     "www-data"
+    mode      0755
+    action    :create
+    recursive true
+  end
 end
 
-# Create our index.html page
-template "/web/test/current/public/index.html" do
+# write our maintenance mode flag
+file "/web/maintenance/IN_MAINTENANCE_MODE" do
+  action :touch
+  owner "www-data"
+  group "www-data"
+end
+
+# Create our foo.html page
+file "/web/maintenance/public/foo.txt" do
   action :create
-  notifies :restart, "service[nginx]"
   mode      0644
   group     "www-data"
   owner     "www-data"
+  content   "BAR\n"
 end
 
 # Create our maintenance.html page
-template "/web/test/current/public/maintenance.html" do
+template "/web/maintenance/public/maintenance.html" do
   action :create
-  notifies :restart, "service[nginx]"
   mode      0644
   group     "www-data"
   owner     "www-data"
+end
+
+template "/web/maintenance/config.ru" do
+  action    :create
+  owner     "www-data"
+  group     "www-data"
+  mode      0755
+  variables({ :server => "maintenance.kitchen" })
+end
+
+nginx_passenger_site "maintenance" do
+  action            :create
+  server            "maintenance.kitchen"
+  cert              "skip"
+  dir               "/web/maintenance"
+  maintenance_page  "/maintenance.html"
 end

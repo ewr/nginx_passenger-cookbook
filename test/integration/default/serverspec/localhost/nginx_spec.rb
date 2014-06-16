@@ -25,12 +25,21 @@ describe file("/var/log/nginx-sites") do
   it { should be_owned_by("www-data") }
 end
 
-describe command("curl -I localhost") do
+# -- test working site -- #
+
+describe command("curl -H 'Host: test.kitchen' http://localhost") do
   it { should return_exit_status 0 }
-  its(:stdout) { should match /HTTP\/1\.1 200/ }
+  its(:stdout) { should include("OK! test.kitchen") }
 end
 
-describe command("curl -I -H 'Host: maintenance-mode-test' localhost") do
+# -- test maintenance site -- #
+
+describe command("curl -H 'Host: maintenance.kitchen' localhost") do
   it { should return_exit_status 0 }
-  its(:stdout) { should match /HTTP\/1\.1 503/ }
+  its(:stdout) { should include("Under Construction") }
+end
+
+describe command("curl -H 'Host: maintenance.kitchen' http://localhost/foo.txt") do
+  it { should return_exit_status 0 }
+  its(:stdout) { should include("BAR") }
 end

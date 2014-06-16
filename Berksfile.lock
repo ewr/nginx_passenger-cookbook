@@ -7,7 +7,7 @@ DEPENDENCIES
 
 GRAPH
   apt (2.4.0)
-  nginx_passenger (0.2.7)
+  nginx_passenger (0.3.1)
     apt (>= 0.0.0)
   nginx_passenger-test (0.0.1)
     nginx_passenger (>= 0.0.0)
