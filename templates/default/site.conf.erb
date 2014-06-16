@@ -45,7 +45,7 @@ server {
     location @maintenance {
         root <%= @resource.dir %>/public;
 
-        if ($uri !~ ^/assets/) {
+        if (!-f <%= @resource.dir %>/public$uri) {
             rewrite ^(.*)$ <%= @resource.maintenance_page %> break;
         }
     }
@@ -107,7 +107,7 @@ server {
     location @maintenance {
         root <%= @resource.dir %>/public;
 
-        if ($uri !~ ^/assets/) {
+        if (!-f <%= @resource.dir %>/public$uri) {
             rewrite ^(.*)$ <%= @resource.maintenance_page %> break;
         }
     }
