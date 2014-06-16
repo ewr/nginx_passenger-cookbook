@@ -14,15 +14,6 @@ package "curl"
   end
 end
 
-# Create public dir
-directory "/web/test/public" do
-  owner     "www-data"
-  group     "www-data"
-  mode      0755
-  action    :create
-  recursive true
-end
-
 template "/web/test/config.ru" do
   action    :create
   owner     "www-data"
