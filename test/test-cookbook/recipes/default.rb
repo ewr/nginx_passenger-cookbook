@@ -28,6 +28,7 @@ nginx_passenger_site "test" do
   server        "test.kitchen"
   cert          "skip"
   dir           "/web/test"
+  log_format    "combined_timing"
 end
 
 # -- Create maintenance mode site -- #

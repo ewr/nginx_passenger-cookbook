@@ -7,7 +7,7 @@ server {
     ssl_certificate <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.cert;
     ssl_certificate_key <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.key;
 
-    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.access.log;
+    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.access.log <%= @log_format %>;
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.error.log;
 
     location / {
@@ -70,7 +70,7 @@ server {
     listen 80;
     server_name <%= @resource.server %>;
 
-    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.access.log;
+    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.access.log <%= @log_format %>;
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.error.log;
 
     location / {

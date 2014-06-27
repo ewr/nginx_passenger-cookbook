@@ -69,6 +69,13 @@ http {
   passenger_ruby <%= node.nginx_passenger.ruby %>;
   passenger_max_pool_size <%= node.nginx_passenger.max_pool_size %>;
 
+  # -- Logging Format -- #
+
+  log_format combined_timing '$remote_addr - $remote_user [$time_local] '
+      '"$request" $status $body_bytes_sent '
+      '"$http_referer" "$http_user_agent" '
+      '$request_time $upstream_response_time $pipe';
+
 	##
 	# Virtual Host Configs
 	##

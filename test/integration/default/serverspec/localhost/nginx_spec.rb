@@ -32,6 +32,11 @@ describe command("curl -H 'Host: test.kitchen' http://localhost") do
   its(:stdout) { should include("OK! test.kitchen") }
 end
 
+# check for timing information on the access log
+describe command("tail -1 /var/log/nginx-sites/test.access.log") do
+  its(:stdout) { should match(/" [\d\.]+ [\d\.]+ \.$/) }
+end
+
 # -- test maintenance site -- #
 
 describe command("curl -H 'Host: maintenance.kitchen' localhost") do
@@ -43,3 +48,9 @@ describe command("curl -H 'Host: maintenance.kitchen' http://localhost/foo.txt")
   it { should return_exit_status 0 }
   its(:stdout) { should include("BAR") }
 end
+
+# there should be no timing data here...
+describe command("tail -1 /var/log/nginx-sites/maintenance.access.log") do
+  its(:stdout) { should match(/"$/) }
+end
+
