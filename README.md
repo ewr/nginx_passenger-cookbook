@@ -47,6 +47,7 @@ There are several other attributes that can be set on the resource:
 * __cert:__ Key that specifies an SSL certificate that should be downloaded
     and installed for the app.  Uses a databag specified in
     `node.nginx_passenger.cert_databag`.
+* __generate_cert:__ If you do not have a certificate but want your site to be served over https, setting this to true will cause the a key and cert to be automatically generated for you. Note that this certificate will be self signed and should probably not be used in production environments! You can set `node.nginx_passenger.cert_authority` if you wish to change the certificate authority shown on the certificate, which ships as 'Self Signed'.
 * __http:__ Should HTTP be supported?  If no cert is provided, the answer
     will be yes, regardless of the value of this flag.  If a cert is provided
     (and HTTPS is therefore enabled), this setting determines whether the
