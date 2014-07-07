@@ -1,0 +1,8 @@
+server {
+  listen 80 default_server;
+  server_name "";
+
+  access_log <%= node.nginx_passenger.log_dir %>/default.access.log;
+
+  return 404;
+}

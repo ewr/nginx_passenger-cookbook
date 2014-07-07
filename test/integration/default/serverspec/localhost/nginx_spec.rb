@@ -54,3 +54,9 @@ describe command("tail -1 /var/log/nginx-sites/maintenance.access.log") do
   its(:stdout) { should match(/"$/) }
 end
 
+# -- test IP for 404 (catch default) -- #
+
+describe command("curl localhost") do
+  it { should return_exit_status 0 }
+  its(:stdout) { should include("404 Not Found") }
+end

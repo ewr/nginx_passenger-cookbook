@@ -56,3 +56,10 @@ directory node.nginx_passenger.log_dir do
   mode 0755
   owner "www-data"
 end
+
+# -- Should we create an empty default site? -- #
+
+template "#{node.nginx_passenger.sites_dir}/DEFAULT" do
+  action node.nginx_passenger.catch_default ? :create : :delete
+  notifies :reload, "service[nginx]"
+end
