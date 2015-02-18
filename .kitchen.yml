@@ -1,9 +1,7 @@
 ---
 driver:
-  name: docker
-  socket: <%= ENV['DOCKER_HOST'] %>
+  name: vagrant
   require_chef_omnibus: true
-  remove_images: true
 
 provisioner: chef_zero
 
@@ -21,5 +19,6 @@ suites:
     - "recipe[nginx_passenger-test]"
   attributes:
     nginx_passenger:
-      sites_dir:  "/etc/nginx/sites"
-      log_dir:    "/var/log/nginx-sites"
+      sites_dir:      "/etc/nginx/sites"
+      log_dir:        "/var/log/nginx-sites"
+      catch_default:  true
