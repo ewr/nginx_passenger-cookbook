@@ -83,3 +83,31 @@ nginx_passenger_site "maintenance" do
   dir               "/web/maintenance"
   maintenance_page  "/maintenance.html"
 end
+
+# -- Create static site -- #
+
+# Create the directory for our web server
+['/web/static'].each do |d|
+  directory d do
+    owner     "www-data"
+    group     "www-data"
+    mode      0755
+    action    :create
+    recursive true
+  end
+end
+
+file "/web/static/index.html" do
+  action :create
+  content "<html><head><title>Testing</title></head><body><h1>Testing Static!</h1></body></html>"
+end
+
+# Create the default test site
+nginx_passenger_site "static" do
+  action        :create
+  server        "static.kitchen"
+  cert          "skip"
+  dir           "/web/static"
+  log_format    "combined_timing"
+  static        true
+end

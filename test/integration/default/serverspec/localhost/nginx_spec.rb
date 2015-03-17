@@ -28,7 +28,7 @@ end
 # -- test working site -- #
 
 describe command("curl -H 'Host: test.kitchen' http://localhost") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
   its(:stdout) { should include("OK! test.kitchen") }
 end
 
@@ -40,12 +40,12 @@ end
 # -- test maintenance site -- #
 
 describe command("curl -H 'Host: maintenance.kitchen' localhost") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
   its(:stdout) { should include("Under Construction") }
 end
 
 describe command("curl -H 'Host: maintenance.kitchen' http://localhost/foo.txt") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
   its(:stdout) { should include("BAR") }
 end
 
@@ -54,9 +54,17 @@ describe command("tail -1 /var/log/nginx-sites/maintenance.access.log") do
   its(:stdout) { should match(/"$/) }
 end
 
+# -- test static site -- #
+
+describe command("curl -H 'Host: static.kitchen' localhost") do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should include("Testing Static!") }
+end
+
 # -- test IP for 404 (catch default) -- #
 
 describe command("curl localhost") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
   its(:stdout) { should include("404 Not Found") }
 end
+

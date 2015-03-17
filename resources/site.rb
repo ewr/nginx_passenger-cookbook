@@ -17,3 +17,4 @@ attribute :custom,            :kind_of => Hash
 attribute :maintenance_page,  :kind_of => String
 attribute :maintenance_check, :kind_of => String
 attribute :log_format,        :kind_of => String
+attribute :static,            :kind_of => [TrueClass,FalseClass], :default => false

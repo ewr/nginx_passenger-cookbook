@@ -11,6 +11,9 @@ server {
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.ssl.error.log;
 
     location / {
+        <% if @resource.static %>
+        root <%= @resource.dir %>
+        <% else %>
         passenger_enabled on;
 
         <% if @resource.ruby %>
@@ -33,6 +36,7 @@ server {
         passenger_set_cgi_param HTTP_X_FORWARDED_PROTO https;
 
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
+        <% end %>
     }
 
     <% if @resource.maintenance_page %>
@@ -74,6 +78,9 @@ server {
     error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.error.log;
 
     location / {
+        <% if @resource.static %>
+        root <%= @resource.dir %>;
+        <% else %>
         passenger_enabled on;
 
         <% if @resource.ruby %>
@@ -95,6 +102,7 @@ server {
         passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
 
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
+        <% end %>
     }
 
     <% if @resource.maintenance_page %>
