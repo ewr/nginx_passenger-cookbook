@@ -8,5 +8,7 @@ description      "Installs/Configures nginx and Passenger on Ubuntu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.5.4"
 
+supports 'ubuntu'
+
 depends "apt"
 depends "ssl_certificate"
