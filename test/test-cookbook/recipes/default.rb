@@ -31,6 +31,36 @@ nginx_passenger_site "test" do
   log_format    "combined_timing"
 end
 
+# -- Create site with a self-signed cert -- #
+
+# Create the directory for our web server
+['/web/certtest','/web/certtest/public'].each do |d|
+  directory d do
+    owner     "www-data"
+    group     "www-data"
+    mode      0755
+    action    :create
+    recursive true
+  end
+end
+
+template "/web/certtest/config.ru" do
+  action    :create
+  owner     "www-data"
+  group     "www-data"
+  mode      0755
+  variables({ :server => "certtest.kitchen" })
+end
+
+# Create the default test site
+nginx_passenger_site "certtest" do
+  action        :create
+  server        "certtest.kitchen"
+  generate_cert true
+  dir           "/web/certtest"
+  log_format    "combined_timing"
+end
+
 # -- Create maintenance mode site -- #
 
 # Create the directory for our web server

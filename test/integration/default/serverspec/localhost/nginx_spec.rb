@@ -37,6 +37,14 @@ describe command("tail -1 /var/log/nginx-sites/test.access.log") do
   its(:stdout) { should match(/" [\d\.]+ [\d\.]+ \.$/) }
 end
 
+# -- test self-signed cert site -- #
+
+describe command("curl -k -v -H 'Host: certtest.kitchen' https://localhost") do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should include("OK! certtest.kitchen") }
+  its(:stdout) { should include("subject: O=Self Signed") }
+end
+
 # -- test maintenance site -- #
 
 describe command("curl -H 'Host: maintenance.kitchen' localhost") do

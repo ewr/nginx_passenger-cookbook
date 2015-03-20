@@ -2,6 +2,7 @@
 
 server {
     listen 443 ssl;
+    ssl on;
     server_name <%= @resource.server %>;
 
     ssl_certificate <%= node.nginx_passenger.certs_dir %>/<%= @resource.name %>.cert;
@@ -33,7 +34,6 @@ server {
         <% end %>
 
         passenger_min_instances <%= @resource.min_instances || node.nginx_passenger.site_min_instances %>;
-        passenger_set_cgi_param HTTP_X_FORWARDED_PROTO https;
 
         client_max_body_size <%= @resource.max_body_size || node.nginx_passenger.site_max_body_size %>;
         <% end %>
