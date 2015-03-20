@@ -6,6 +6,7 @@ attribute :rails_env,         :kind_of => String
 attribute :dir,               :kind_of => String
 attribute :ruby,              :kind_of => String
 attribute :cert,              :kind_of => String
+attribute :generate_cert,     :kind_of => [TrueClass,FalseClass], :default => false
 attribute :http,              :kind_of => [TrueClass,FalseClass], :default => false
 attribute :template,          :kind_of => String
 attribute :min_instances,     :kind_of => Integer

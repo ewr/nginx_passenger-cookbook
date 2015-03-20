@@ -3,17 +3,19 @@ action :create do
 
   cert_exists = false
 
+  if (new_resource.cert && new_resource.cert != "skip") || new_resource.generate_cert
+    directory node.nginx_passenger.certs_dir do
+      action :create
+      recursive true
+    end
+  end
+
   if new_resource.cert && new_resource.cert != "skip"
     # Look up SSL cert in databag
     cert = data_bag_item(node.nginx_passenger.cert_databag,new_resource.cert)
 
     if cert
       # TODO: Need to make sure cert has cert and key
-
-      directory node.nginx_passenger.certs_dir do
-        action :create
-        recursive true
-      end
 
       cert.keys.each do |k|
         file "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.#{k}" do
@@ -25,9 +27,24 @@ action :create do
       end
 
       cert_exists = true
+
     else
       # need to error that the specified SSL cert wasn't found
     end
+  end
+
+  if new_resource.generate_cert
+
+    ssl_certificate new_resource.server do
+      action :create
+      organization node.nginx_passenger.cert_authority
+      key_path "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.key"
+      cert_path "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.cert"
+      source "self-signed"
+    end
+
+    cert_exists = true
+
   end
 
   # -- Create nginx site file -- #
