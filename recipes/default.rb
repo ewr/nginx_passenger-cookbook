@@ -8,9 +8,14 @@ package "apt-transport-https"
 
 # -- Add repo -- #
 
+# Phusion provides two repos: one that cotains Passenger 5, and one that
+# contains Passenger 4. Use the appropriate one based on the
+# `nginx_passenger.use_passenger_4` attribute boolean
+apt_uri = node.nginx_passenger.use_passenger_4 ? "https://oss-binaries.phusionpassenger.com/apt/passenger/4" : "https://oss-binaries.phusionpassenger.com/apt/passenger"
+
 apt_repository "phusion" do
   action        :add
-  uri           "https://oss-binaries.phusionpassenger.com/apt/passenger"
+  uri           apt_uri
   distribution  node.lsb.codename
   components    ['main']
   keyserver     "keyserver.ubuntu.com"

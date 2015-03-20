@@ -22,3 +22,13 @@ suites:
       sites_dir:      "/etc/nginx/sites"
       log_dir:        "/var/log/nginx-sites"
       catch_default:  true
+- name: passenger4
+  run_list:
+    - "recipe[nginx_passenger]"
+    - "recipe[nginx_passenger-test]"
+  attributes:
+    nginx_passenger:
+      use_passenger_4:  true
+      sites_dir:        "/etc/nginx/sites"
+      log_dir:          "/var/log/nginx-sites"
+      catch_default:    true

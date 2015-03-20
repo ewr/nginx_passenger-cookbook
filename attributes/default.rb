@@ -1,3 +1,5 @@
+default.nginx_passenger.use_passenger_4     = false
+
 default.nginx_passenger.sites_dir           = "/etc/nginx/sites-enabled"
 default.nginx_passenger.nginx_workers       = 4
 default.nginx_passenger.catch_default       = false

@@ -14,12 +14,36 @@ using packages compiled by Phusion.  If you want to do extensive nginx
 configuration, you may want to use the Opscode
 [nginx cookbook](https://github.com/opscode-cookbooks/nginx) instead.
 
-
 Currently the cookbook is only written for Ubuntu, since it assumes apt for
 package install.
 
 The default recipe adds the Phusion repository and installs the passenger and
 nginx packages.
+
+# Configuration Attributes
+
+* __use\_passenger\_4:__ If true, use Phusion's Passenger 4 repo rather than
+    the main one (which is now Passenger 5). Default false.
+* __sites\_dir:__ Directory in which to write our virtualhost files. Defaults
+    to `/etc/nginx/sites-enabled`.
+* __nginx\_workers:__ NGINX worker count. Defaults to 4.
+* __catch\_default`:__ If true, add an empty virtualhost file that catches all
+    requests for hosts other than the ones explicitly registered in virtualhost
+    files. Defaults to false.
+* __log\_dir:__ Directory for nginx and site log files. Defaults to `/var/log/nginx`
+* __certs\_dir:__ Directory for cert files. Defaults to `/etc/nginx/certs`
+* __ruby:__ Default Ruby interpreter. Defaults to `/usr/bin/ruby`
+* __max\_pool\_size`:__ Max number of passenger instances. Defaults to 8.
+* __cert\_databag:__ What databag should we look for SSL certs in? Defaults to `ssl_certs`
+* __redirect\_to\_https:__ If a site supports https, should we redirect http
+    requests there? Defaults to true.
+* __site\_min\_instances:__ Passenger config for minimum instances of each app. Defaults to 2.
+* __site\_max\_body\_size:__ Maximum body size for uploads. Defaults to `8M`
+* __keep\_env\_path:__ Tell nginx to pass the PATH environment variable through. Defaults to `true`
+* __default\_log\_format:__ What logging format should be used? Defaults to "combined".
+    Also available is `combined_timing`, which adds request time and upstream response time.
+* __maintenance\_page:__ Default path to a maintenance page. Defaults to `nil`
+* __maintenance\_check:__ Default path to a maintenance check. Defaults to `nil`
 
 ## `nginx_passenger_site`
 
