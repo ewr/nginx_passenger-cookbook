@@ -18,7 +18,7 @@ apt_repository "phusion" do
   uri           apt_uri
   distribution  node.lsb.codename
   components    ['main']
-  keyserver     "keyserver.ubuntu.com:80"
+  keyserver     "hkp://keyserver.ubuntu.com:80"
   key           "561F9B9CAC40B2F7"
 end
 
