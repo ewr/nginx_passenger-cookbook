@@ -27,6 +27,7 @@ nginx packages.
 * __sites\_dir:__ Directory in which to write our virtualhost files. Defaults
     to `/etc/nginx/sites-enabled`.
 * __nginx\_workers:__ NGINX worker count. Defaults to 4.
+* __nginx\_connections:__ NGINX worker connection count. Defaults to 768.
 * __catch\_default`:__ If true, add an empty virtualhost file that catches all
     requests for hosts other than the ones explicitly registered in virtualhost
     files. Defaults to false.

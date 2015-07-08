@@ -9,7 +9,7 @@ env PATH;
 <% end %>
 
 events {
-	worker_connections 768;
+	worker_connections <%= node.nginx_passenger.nginx_connections %>;
 	# multi_accept on;
 }
 
