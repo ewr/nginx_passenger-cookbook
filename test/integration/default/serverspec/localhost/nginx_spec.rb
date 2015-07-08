@@ -42,7 +42,7 @@ end
 describe command("curl -k -v -H 'Host: certtest.kitchen' https://localhost") do
   its(:exit_status) { should eq 0 }
   its(:stdout) { should include("OK! certtest.kitchen") }
-  its(:stdout) { should include("subject: O=Self Signed") }
+  its(:stderr) { should include("subject: O=Self Signed") }
 end
 
 # -- test maintenance site -- #
