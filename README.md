@@ -35,6 +35,7 @@ nginx packages.
 * __certs\_dir:__ Directory for cert files. Defaults to `/etc/nginx/certs`
 * __ruby:__ Default Ruby interpreter. Defaults to `/usr/bin/ruby`
 * __max\_pool\_size`:__ Max number of passenger instances. Defaults to 8.
+* __max\_instances\_per\_app:__ Max number of passenger instances for a single app. Defaults to 0 (unlimited).
 * __min\_instances:__ Passenger config for default minimum instances of all apps. Defaults to 2.
 * __pool\_idle\_time:__ Max number of seconds a Passenger process may be idle. Defaults to 300.
 * __max\_requests:__ Max number of requests a Passenger process will handle. Defaults to 0.
