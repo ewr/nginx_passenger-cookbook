@@ -27,6 +27,7 @@ nginx packages.
 * __sites\_dir:__ Directory in which to write our virtualhost files. Defaults
     to `/etc/nginx/sites-enabled`.
 * __nginx\_workers:__ NGINX worker count. Defaults to 4.
+* __nginx\_connections:__ NGINX worker connection count. Defaults to 768.
 * __catch\_default`:__ If true, add an empty virtualhost file that catches all
     requests for hosts other than the ones explicitly registered in virtualhost
     files. Defaults to false.
@@ -34,10 +35,14 @@ nginx packages.
 * __certs\_dir:__ Directory for cert files. Defaults to `/etc/nginx/certs`
 * __ruby:__ Default Ruby interpreter. Defaults to `/usr/bin/ruby`
 * __max\_pool\_size`:__ Max number of passenger instances. Defaults to 8.
+* __max\_instances\_per\_app:__ Max number of passenger instances for a single app. Defaults to 0 (unlimited).
+* __min\_instances:__ Passenger config for default minimum instances of all apps. Defaults to 2.
+* __pool\_idle\_time:__ Max number of seconds a Passenger process may be idle. Defaults to 300.
+* __max\_requests:__ Max number of requests a Passenger process will handle. Defaults to 0.
 * __cert\_databag:__ What databag should we look for SSL certs in? Defaults to `ssl_certs`
 * __redirect\_to\_https:__ If a site supports https, should we redirect http
     requests there? Defaults to true.
-* __site\_min\_instances:__ Passenger config for minimum instances of each app. Defaults to 2.
+* __site\_min\_instances:__ Passenger config for minimum instances of each app. Overrides default `min_instances`. Defaults to 2.
 * __site\_max\_body\_size:__ Maximum body size for uploads. Defaults to `8M`
 * __keep\_env\_path:__ Tell nginx to pass the PATH environment variable through. Defaults to `true`
 * __default\_log\_format:__ What logging format should be used? Defaults to "combined".
