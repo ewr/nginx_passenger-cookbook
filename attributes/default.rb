@@ -8,6 +8,9 @@ default.nginx_passenger.log_dir             = "/var/log/nginx"
 default.nginx_passenger.certs_dir           = "/etc/nginx/certs"
 default.nginx_passenger.ruby                = "/usr/bin/ruby"
 default.nginx_passenger.max_pool_size       = 8
+default.nginx_passenger.min_instances       = 2
+default.nginx_passenger.pool_idle_time      = 300
+default.nginx_passenger.max_requests        = 0
 
 default.nginx_passenger.cert_databag        = "ssl_certs"
 default.nginx_passenger.cert_authority      = "Self Signed"
