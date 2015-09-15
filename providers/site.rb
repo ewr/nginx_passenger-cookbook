@@ -37,6 +37,7 @@ action :create do
 
     ssl_certificate new_resource.server do
       action :create
+      common_name new_resource.server
       organization node.nginx_passenger.cert_authority
       key_path "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.key"
       cert_path "#{node.nginx_passenger.certs_dir}/#{new_resource.name}.cert"
