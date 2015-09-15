@@ -12,6 +12,12 @@ platforms:
     disable_upstart:  false
     run_command:      /sbin/init
 
+- name: ubuntu-14.04
+  driver_config:
+    image:            ubuntu-upstart
+    disable_upstart:  false
+    run_command:      /sbin/init
+
 suites:
 - name: default
   run_list:
