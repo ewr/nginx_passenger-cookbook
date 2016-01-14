@@ -49,6 +49,8 @@ nginx packages.
     Also available is `combined_timing`, which adds request time and upstream response time.
 * __maintenance\_page:__ Default path to a maintenance page. Defaults to `nil`
 * __maintenance\_check:__ Default path to a maintenance check. Defaults to `nil`
+* __enterprise\_token:__ Enterprise download token for [Passenger Enterprise](https://www.phusionpassenger.com/enterprise). Defaults to `nil`
+* __enterprise\_license:__ Remote URL to your Passenger Enterprise license file. Defaults to `nil`
 
 ## `nginx_passenger_site`
 
