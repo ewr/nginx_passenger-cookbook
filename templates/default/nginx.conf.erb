@@ -72,6 +72,7 @@ http {
   passenger_min_instances <%= node.nginx_passenger.min_instances %>;
   passenger_pool_idle_time <%= node.nginx_passenger.pool_idle_time %>;
   passenger_max_requests <%= node.nginx_passenger.max_requests %>;
+  passenger_log_file <%= node.nginx_passenger.log_file %>;
 
   # -- Logging Format -- #
 
