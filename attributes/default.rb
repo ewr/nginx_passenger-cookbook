@@ -6,6 +6,7 @@ default.nginx_passenger.nginx_connections     = 768
 default.nginx_passenger.catch_default         = false
 
 default.nginx_passenger.log_dir               = "/var/log/nginx"
+default.nginx_passenger.log_file              = "/var/log/nginx/error.log"
 default.nginx_passenger.certs_dir             = "/etc/nginx/certs"
 default.nginx_passenger.ruby                  = "/usr/bin/ruby"
 default.nginx_passenger.max_pool_size         = 8
