@@ -25,3 +25,4 @@ default.nginx_passenger.default_log_format    = "combined"
 
 default.nginx_passenger.maintenance_page      = nil
 default.nginx_passenger.maintenance_check     = nil
+default.nginx_passenger.keepalive_timeout     = 65
