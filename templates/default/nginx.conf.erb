@@ -23,6 +23,11 @@ http {
 	tcp_nopush on;
 	tcp_nodelay on;
 	keepalive_timeout <%= node.nginx_passenger.keepalive_timeout %>;
+  proxy_connect_timeout       <%= node.nginx_passenger.proxy_connect_timeout %>;
+  proxy_send_timeout          <%= node.nginx_passenger.proxy_send_timeout %>;
+  proxy_read_timeout          <%= node.nginx_passenger.proxy_read_timeout %>;
+  send_timeout               <%= node.nginx_passenger.send_timeout %>;
+
 	types_hash_max_size 2048;
 	# server_tokens off;
 
