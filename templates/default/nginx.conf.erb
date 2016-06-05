@@ -1,6 +1,6 @@
 # THIS FILE IS MANAGED BY CHEF's nginx_passenger COOKBOOK.
 
-user www-data;
+user <%= node.nginx.user %>;
 worker_processes <%= node.nginx_passenger.nginx_workers %>;
 pid /var/run/nginx.pid;
 
